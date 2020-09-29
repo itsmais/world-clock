@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+/*
+    Color Palette:
+    https://coolors.co/584b53-9d5c63-d6e3f8-fef5ef-e4bb97
+*/
+
+.row div {
+    background-color: #F45D01;
+    margin: 5px;
+    color: #474647;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    color: #F45D01;
+}
+
+.main-content {
+    width: 750%;
+    padding: 10px;
+}
+
+div {
+    font-family: 'Roboto Mono', monospace;
+    font-size: larger;
+}
+
+body {
+    background-color: #474647;
+}
+
+footer {
+    font-size: x-small;
+    text-align: center;
+    color: #F45D01;
+}
+
+footer a {
+    color: #F45D01;
+}
+
+footer a:hover {
+    color: #EEB902;
+}
