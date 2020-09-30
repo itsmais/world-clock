@@ -1,17 +1,17 @@
-// let cities=[
-//     'user city',
-//     'Shanghai',
-//     'Moscow',
-//     'Toronto',
-//     'Melbourne',
-//     'Madrid',
-//     'Berlin',
-//     'Seoul',
-//     'Brussels',
-//     'New York',
-//     'London',
-//     'Tokyo'
-// ]
+let cities=[
+    'user city',
+    'Shanghai',
+    'Moscow',
+    'Toronto',
+    'Melbourne',
+    'Madrid',
+    'Berlin',
+    'Seoul',
+    'Brussels',
+    'New York',
+    'London',
+    'Tokyo'
+]
 let utc_offsets=[
     'user city',
     8,
@@ -40,7 +40,7 @@ let timeZoneLink = 'https://worldtimeapi.org/api/ip';
     // https://worldtimeapi.org/api/timezone/asia/tokyo
 
 let times = [];
-
+let parsedResult="";
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -49,42 +49,47 @@ var requestOptions = {
   fetch("https://worldtimeapi.org/api/ip", requestOptions)
     .then(response => response.text())
     .then(result => {
-        let parsedResult = JSON.parse(result);
+        parsedResult = JSON.parse(result);
         let indOfSlash = parsedResult["timezone"].indexOf('/')+1;
         let localRegion = parsedResult["timezone"].substring(indOfSlash);
         updateLocalRegion(localRegion);
-        // let localUTCOffset = parsedResult["utc_offset"];
-        document.getElementById("c0").innerHTML+="<br>"+ getTime(parsedResult["datetime"]);
+        let localUTCOffset = parseInt(parsedResult["utc_offset"]);
+        utc_offsets[0]=localUTCOffset;
+        // document.getElementById("c0").innerHTML+="<br>"+ getTime(parsedResult["datetime"]);
         
-        let localUTCTime = new Date (parsedResult["utc_datetime"]);
         ////////////////////////////////////////////
-        for (let i=1; i<12; i++){
-            // utc time, utc offsets
+        let localUTCTime = new Date (parsedResult["utc_datetime"]);
+        for (let i=0; i<12; i++){
             let tzDifference = utc_offsets[i] * 60 + localUTCTime.getTimezoneOffset();
             let currentDate = new Date(localUTCTime.getTime() + tzDifference * 60 * 1000);
             times[i] = currentDate;
             currentDate.getTime();
-
             var date = currentDate.getDate();
             var hr = currentDate.getHours();
             var min = currentDate.getMinutes();
-            // var month = months[currentDate.getMonth()];
-            // var year = currentDate.getFullYear();
-            // x.innerHTML = day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
-            document.getElementById("c"+i).innerHTML+= "<br>"+ hr + ":" + min ;
-
+            var sec = currentDate.getSeconds();
+            document.getElementById("c"+i).innerHTML+= "<br>"+ hr + ":" + min  + ":" + sec;
         }
-       
-
         ////////////////////////////////////////////
 
         
     })
     .catch(error => console.log('error', error));
 
+    // Time Animations
+    setInterval(function(){ 
+        for (let i=0; i<12; i++){
+            times[i].setSeconds(times[i].getSeconds()+1);
+            var hr = times[i].getHours();
+            var min = times[i].getMinutes();
+            var sec = times[i].getSeconds();
+            document.getElementById("c"+i).innerHTML=cities[i]+ "<br>"+ hr + ":" + min  + ":" + sec;
+        }
+    }, 1000);
 
 function updateLocalRegion(region){
     document.getElementById("c0").innerHTML=region;
+    cities[0] = region;
 }
 function updateTime(time, country_index){
     document.getElementById("c"+country_index).innerHTML+=time;
