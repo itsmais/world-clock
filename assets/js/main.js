@@ -14,17 +14,17 @@
 // ]
 let utc_offsets=[
     'user city',
-    "+08:00",
-    '+03:00',
-    '-04:00',
-    "+10:00",
-    "+02:00",
-    "+02:00",
-    '+09:00',
-    '+02:00',
-    "-04:00",
-    '+01:00"',
-    '+09:00'
+    8,
+    3,
+    -4,
+    +10,
+    +2,
+    +2,
+    +9,
+    +2,
+    -4,
+    +1,
+    +9
 ]
 let timeZoneLink = 'https://worldtimeapi.org/api/ip';
     // https://worldtimeapi.org/api/timezone/asia/shanghai
@@ -52,15 +52,30 @@ var requestOptions = {
         let parsedResult = JSON.parse(result);
         let indOfSlash = parsedResult["timezone"].indexOf('/')+1;
         let localRegion = parsedResult["timezone"].substring(indOfSlash);
-        let localUTCTime = parsedResult["utc_datetime"];
         updateLocalRegion(localRegion);
-
+        // let localUTCOffset = parsedResult["utc_offset"];
+        document.getElementById("c0").innerHTML+="<br>"+ getTime(parsedResult["datetime"]);
+        
+        let localUTCTime = new Date (parsedResult["utc_datetime"]);
         ////////////////////////////////////////////
-        for (let i=0; i<12; i++){
+        for (let i=1; i<12; i++){
             // utc time, utc offsets
-            let temp = new Date (localUTCTime) + utc_offsets[i];
-            updateTime(temp.toUTCString(),i);
+            let tzDifference = utc_offsets[i] * 60 + localUTCTime.getTimezoneOffset();
+            let currentDate = new Date(localUTCTime.getTime() + tzDifference * 60 * 1000);
+            times[i] = currentDate;
+            currentDate.getTime();
+
+            var date = currentDate.getDate();
+            var hr = currentDate.getHours();
+            var min = currentDate.getMinutes();
+            // var month = months[currentDate.getMonth()];
+            // var year = currentDate.getFullYear();
+            // x.innerHTML = day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
+            document.getElementById("c"+i).innerHTML+= "<br>"+ hr + ":" + min ;
+
         }
+       
+
         ////////////////////////////////////////////
 
         
@@ -74,6 +89,6 @@ function updateLocalRegion(region){
 function updateTime(time, country_index){
     document.getElementById("c"+country_index).innerHTML+=time;
 }
-function getTime (dataTimeString){
-    return (dataTimeString.substring(11,19));
+function getTime (dateTimeString){
+    return (dateTimeString.substring(11,19));
 }
