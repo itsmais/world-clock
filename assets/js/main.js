@@ -55,9 +55,7 @@ var requestOptions = {
         updateLocalRegion(localRegion);
         let localUTCOffset = parseInt(parsedResult["utc_offset"]);
         utc_offsets[0]=localUTCOffset;
-        // document.getElementById("c0").innerHTML+="<br>"+ getTime(parsedResult["datetime"]);
         
-        ////////////////////////////////////////////
         let localUTCTime = new Date (parsedResult["utc_datetime"]);
         for (let i=0; i<12; i++){
             let tzDifference = utc_offsets[i] * 60 + localUTCTime.getTimezoneOffset();
@@ -70,9 +68,6 @@ var requestOptions = {
             var sec = currentDate.getSeconds();
             document.getElementById("c"+i).innerHTML+= "<br>"+ hr + ":" + min  + ":" + sec;
         }
-        ////////////////////////////////////////////
-
-        
     })
     .catch(error => console.log('error', error));
 
