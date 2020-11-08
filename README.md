@@ -6,8 +6,8 @@ Time 12 cities over the world, including user's own location.
 <p  align="left">
 <a  href="http://makeapullrequest.com">
 <img  src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"  alt="PRs Welcome">
-  - Issue (nov 2020): solve the daylight time difference.
 </a>
+    - Issue (nov 2020): solve the daylight time difference.
 </p>
 
 ### Screen of the Website
