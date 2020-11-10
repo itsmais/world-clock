@@ -12,6 +12,8 @@ let cities=[
     'London',
     'Tokyo'
 ]
+// old offsets
+/*
 let utc_offsets=[
     'user city',
     8,
@@ -26,6 +28,24 @@ let utc_offsets=[
     +1,
     +9
 ]
+
+*/
+
+// temporary solution
+let utc_offsets=[
+    'user city',
+    8, // shanghai UNCHANGED
+    3, // moscow UNCHANGED
+    -5, // toronto CHANGED
+    +9, // melbourne CHANGED
+    +1, // madrid CHANGED
+    +1, // berlin CHANGED
+    +9, // seoul CHANGED
+    +1, // brussels CHANGED
+    -5, // new_york CHANGED
+    0, // london CHANGED
+    +9 // tokyo UNCHANGED
+]
 let timeZoneLink = 'https://worldtimeapi.org/api/ip';
     // https://worldtimeapi.org/api/timezone/asia/shanghai
     // https://worldtimeapi.org/api/timezone/europe/moscow
@@ -34,7 +54,7 @@ let timeZoneLink = 'https://worldtimeapi.org/api/ip';
     // https://worldtimeapi.org/api/timezone/europe/madrid
     // https://worldtimeapi.org/api/timezone/europe/berlin
     // https://worldtimeapi.org/api/timezone/asia/seoul
-    // https://worldtimeapi.org/api/timezone/europe/madrid
+    // https://worldtimeapi.org/api/timezone/europe/brussels
     // https://worldtimeapi.org/api/timezone/america/new_york
     // https://worldtimeapi.org/api/timezone/europe/london
     // https://worldtimeapi.org/api/timezone/asia/tokyo
